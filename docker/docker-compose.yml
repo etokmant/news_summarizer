@@ -1,0 +1,25 @@
+# Версия формата docker-compose
+version: '3.8'
+
+# Определение сервисов (контейнеров)
+services:
+  # Сервис API
+  api:
+    # Сборка образа из Dockerfile в текущей директории
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    
+    # Имя контейнера
+    container_name: news-summarizer-api
+    
+    # Проброс портов: порт компьютера:порт контейнера
+    ports:
+      - "8000:8000"
+    
+    # Переменные окружения
+    environment:
+      - PYTHONUNBUFFERED=1
+    
+    # Перезапуск контейнера при сбое
+    restart: unless-stopped
